@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For You <3</title>
+    <style>
+        /* Soft, simple background */
+        body {
+            background-color: #fff5f7;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace; /* Classic typewriter feel */
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* The Poem Text */
+        .poem-line {
+            color: #d63384;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        /* Timing for each line */
+        .line-1 { animation-delay: 1s; }
+        .line-2 { animation-delay: 4s; }
+        .line-3 { animation-delay: 7s; }
+        .line-4 { animation-delay: 10s; }
+
+        /* The <3 heart at the end */
+        .big-heart {
+            font-size: 2rem;
+            color: #ff4d6d;
+            margin-top: 20px;
+            opacity: 0;
+            display: block;
+            animation: fadeIn 2s forwards 12s, pulse 1.5s infinite 14s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Simple background decorations */
+        .bg-stuff {
+            position: absolute;
+            color: #ffcad4;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Floating animation for background bits */
+        @keyframes floatUp {
+            from { transform: translateY(110vh); opacity: 1; }
+            to { transform: translateY(-10vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="poem-line line-1">a little thought,</div>
+        <div class="poem-line line-2">a simple day,</div>
+        <div class="poem-line line-3">i'm glad you're here</div>
+        <div class="poem-line line-4">in every way.</div>
+        <span class="big-heart"><3</span>
+    </div>
+
+    <script>
+        const symbols = ['<3', '.', '*', '+', 'o'];
+        
+        function createBgEffect() {
+            const element = document.createElement('div');
+            element.className = 'bg-stuff';
+            
+            // Pick a random symbol from the list
+            element.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            
+            // Randomize position and size
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            
+            // Randomize animation speed
+            const duration = Math.random() * 5 + 5;
+            element.style.animation = `floatUp ${duration}s linear forwards`;
+            
+            document.body.appendChild(element);
+
+            // Clean up
+            setTimeout(() => {
+                element.remove();
+            }, duration * 1000);
+        }
+
+        // Create a new background item every 400ms
+        setInterval(createBgEffect, 400);
+    </script>
+</body>
+</html>
